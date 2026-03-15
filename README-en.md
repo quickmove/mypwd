@@ -1,5 +1,7 @@
 # MyPwd
 
+[中文版](./README.md)
+
 A local password manager for macOS, built with SwiftUI and using CryptoKit for end-to-end encryption.
 
 ## Tech Stack
@@ -87,7 +89,3 @@ MyPwd/
 - Encryption key stored in Keychain, protected by Touch ID
 - Password data encrypted with AES-GCM-256
 - Biometric authentication support
-
----
-
-[中文版](./README.md)

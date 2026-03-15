@@ -1,5 +1,7 @@
 # MyPwd
 
+[English Version](./README-en.md)
+
 macOS 平台的本地密码管理器，采用 SwiftUI 构建，使用 CryptoKit 进行端到端加密存储。
 
 ## 技术栈
@@ -87,7 +89,3 @@ MyPwd/
 - 加密密钥存储在 Keychain 中，受 Touch ID 保护
 - 密码数据使用 AES-GCM-256 加密存储
 - 支持生物识别快速解锁
-
----
-
-[English Version](./README-en.md)

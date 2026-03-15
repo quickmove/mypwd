@@ -27,26 +27,26 @@ final class AppState: ObservableObject {
     @Published var isSetup = false
     @Published var refreshTrigger = false
     @Published var remainingSeconds: Int = 30
-    @Published var isPaused: Bool = false  // 暂停自动锁定
-    @Published var isLocking: Bool = false  // 防止重复锁定
+    @Published var isPaused: Bool = false  // Pause auto-lock
+    @Published var isLocking: Bool = false  // Prevent duplicate locking
 
     private var idleTimer: Timer?
     private var countdownTimer: Timer?
     private var lastActivityTime: Date = Date()
 
-    // 自动锁定超时时间（秒）
+    // Auto-lock timeout in seconds
     private let autoLockTimeout: TimeInterval = 30
 
     init() {
         isSetup = PasswordStorageService.shared.isSetup
         startIdleMonitor()
 
-        // 监听用户活动通知
+        // Listen for user activity notifications
         NotificationCenter.default.addObserver(forName: .userActivityRecorded, object: nil, queue: .main) { [weak self] _ in
             self?.recordActivity()
         }
 
-        // 监听暂停/恢复自动锁定
+        // Listen for pause/resume auto-lock
         NotificationCenter.default.addObserver(forName: .pauseAutoLock, object: nil, queue: .main) { [weak self] _ in
             self?.isPaused = true
         }
@@ -57,12 +57,12 @@ final class AppState: ObservableObject {
         }
     }
 
-    // 定期检查无操作时间
+    // Periodically check idle time
     private func startIdleMonitor() {
         Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in
             guard let self = self, self.isUnlocked else { return }
 
-            // 如果暂停，不减少秒数
+            // If paused, don't decrement seconds
             if self.isPaused {
                 return
             }
@@ -79,13 +79,13 @@ final class AppState: ObservableObject {
         }
     }
 
-    // 记录用户活动（需要在视图层调用）
+    // Record user activity (called from view layer)
     func recordActivity() {
         lastActivityTime = Date()
     }
 
     func setup(masterPassword: String, customPath: URL? = nil) throws {
-        // 设置自定义路径（如果有）
+        // Set custom path if provided
         if let path = customPath {
             PasswordStorageService.shared.customStoreURL = path
         }
@@ -116,7 +116,7 @@ final class AppState: ObservableObject {
         lastActivityTime = Date()
         remainingSeconds = Int(autoLockTimeout)
 
-        // 如果已配置 Git 且是 Git 仓库，执行 pull
+        // If Git is configured and is a Git repository, perform pull
         if GitService.shared.isConfigured && GitService.shared.isGitRepository {
             Task {
                 do {
@@ -129,7 +129,7 @@ final class AppState: ObservableObject {
     }
 
     func unlockWithBiometrics() async throws {
-        try await AuthenticationService.shared.authenticateWithBiometrics(reason: "解锁密码库")
+        try await AuthenticationService.shared.authenticateWithBiometrics(reason: "Unlock password vault")
 
         await MainActor.run {
             do {
@@ -139,7 +139,7 @@ final class AppState: ObservableObject {
                 lastActivityTime = Date()
                 remainingSeconds = Int(autoLockTimeout)
 
-                // 如果已配置 Git 且是首次拉取后的登录，执行 pull
+                // If Git is configured and login after first pull, perform pull
                 if GitService.shared.isConfigured && GitService.shared.isGitRepository {
                     Task {
                         do {
@@ -150,13 +150,13 @@ final class AppState: ObservableObject {
                     }
                 }
             } catch {
-                errorMessage = "TouchID 解锁失败: \(error.localizedDescription)"
+                errorMessage = "TouchID unlock failed: \(error.localizedDescription)"
             }
         }
     }
 
     func lock() {
-        // 防止重复锁定
+        // Prevent duplicate locking
         guard !isLocking else {
             return
         }
@@ -168,7 +168,7 @@ final class AppState: ObservableObject {
         PasswordStorageService.shared.lock()
         isUnlocked = false
 
-        // 锁定时最小化应用
+        // Minimize app when locking
         DispatchQueue.main.async {
             NSApp.keyWindow?.miniaturize(nil)
         }

@@ -13,19 +13,19 @@ enum AuthenticationError: Error, LocalizedError {
     var errorDescription: String? {
         switch self {
         case .biometryNotAvailable:
-            return "生物识别不可用"
+            return "Biometry not available"
         case .biometryNotEnrolled:
-            return "未设置生物识别"
+            return "Biometry not enrolled"
         case .biometryLockout:
-            return "生物识别已锁定"
+            return "Biometry locked out"
         case .failed:
-            return "认证失败"
+            return "Authentication failed"
         case .cancelled:
-            return "用户取消"
+            return "User cancelled"
         case .systemCancel:
-            return "系统取消"
+            return "System cancelled"
         case .passcodeNotSet:
-            return "未设置密码"
+            return "Passcode not set"
         }
     }
 }
@@ -50,7 +50,7 @@ final class AuthenticationService {
 
     func authenticateWithBiometrics(reason: String) async throws {
         let context = LAContext()
-        context.localizedCancelTitle = "使用密码"
+        context.localizedCancelTitle = "Use Password"
 
         var error: NSError?
         guard context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) else {

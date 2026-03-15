@@ -12,13 +12,13 @@ struct PasswordDetailView: View {
     @State private var timer: Timer?
     @State private var showingDeleteAlert = false
 
-    // 自动隐藏超时时间（秒）
+    // Auto-hide timeout in seconds
     private let autoHideTimeout: TimeInterval = 30
 
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 24) {
-                // 标题
+                // Title
                 HStack {
                     VStack(alignment: .leading, spacing: 4) {
                         Text(item.displayTitle)
@@ -38,14 +38,14 @@ struct PasswordDetailView: View {
                         NotificationCenter.default.post(name: .pauseAutoLock, object: nil)
                         showingEditor = true
                     }) {
-                        Label("编辑", systemImage: "pencil")
+                        Label("Edit", systemImage: "pencil")
                     }
                     .buttonStyle(.bordered)
 
                     Button(action: {
                         showingDeleteAlert = true
                     }) {
-                        Label("删除", systemImage: "trash")
+                        Label("Delete", systemImage: "trash")
                     }
                     .buttonStyle(.bordered)
                     .tint(.red)
@@ -53,11 +53,11 @@ struct PasswordDetailView: View {
 
                 Divider()
 
-                // 用户名
-                DetailField(title: "用户名", value: item.username, isSensitive: false, copiedFieldName: $copiedField)
+                // Username
+                DetailField(title: "Username", value: item.username, isSensitive: false, copiedFieldName: $copiedField)
 
-                // 密码
-                DetailField(title: "密码", value: item.password, isSensitive: !showPassword, copiedFieldName: $copiedField) {
+                // Password
+                DetailField(title: "Password", value: item.password, isSensitive: !showPassword, copiedFieldName: $copiedField) {
                     AnyView(
                         Button(action: togglePassword) {
                             Image(systemName: showPassword ? "eye.slash" : "eye")
@@ -66,10 +66,10 @@ struct PasswordDetailView: View {
                     )
                 }
 
-                // 备注
+                // Notes
                 if !item.note.isEmpty {
                     VStack(alignment: .leading, spacing: 8) {
-                        Text("备注")
+                        Text("Notes")
                             .font(.subheadline)
                             .foregroundStyle(.secondary)
 
@@ -78,13 +78,13 @@ struct PasswordDetailView: View {
                     }
                 }
 
-                // 时间信息
+                // Time information
                 VStack(alignment: .leading, spacing: 4) {
-                    Text("创建时间: \(item.createdAt.formatted())")
+                    Text("Created: \(item.createdAt.formatted())")
                         .font(.caption)
                         .foregroundStyle(.tertiary)
 
-                    Text("更新时间: \(item.updatedAt.formatted())")
+                    Text("Updated: \(item.updatedAt.formatted())")
                         .font(.caption)
                         .foregroundStyle(.tertiary)
                 }
@@ -103,20 +103,20 @@ struct PasswordDetailView: View {
                 NotificationCenter.default.post(name: .resumeAutoLock, object: nil)
             }
         }
-        .alert("确认删除", isPresented: $showingDeleteAlert) {
-            Button("取消", role: .cancel) { }
-            Button("删除", role: .destructive) {
+        .alert("Confirm Delete", isPresented: $showingDeleteAlert) {
+            Button("Cancel", role: .cancel) { }
+            Button("Delete", role: .destructive) {
                 try? PasswordStorageService.shared.deleteItem(id: item.id)
                 onDelete()
             }
         } message: {
-            Text("确定要删除 \"\(item.displayTitle)\" 吗？此操作无法撤销。")
+            Text("Are you sure you want to delete \"\(item.displayTitle)\"? This action cannot be undone.")
         }
-        // 密码项变化时隐藏密码
+        // Hide password when password item changes
         .onChange(of: item.id) { _ in
             hidePassword()
         }
-        // 视图消失时隐藏密码并取消计时器
+        // Hide password and cancel timer when view disappears
         .onDisappear {
             hidePassword()
         }

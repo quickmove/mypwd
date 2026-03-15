@@ -10,13 +10,13 @@ enum CryptoError: Error, LocalizedError {
     var errorDescription: String? {
         switch self {
         case .encryptionFailed:
-            return "加密失败"
+            return "Encryption failed"
         case .decryptionFailed:
-            return "解密失败"
+            return "Decryption failed"
         case .invalidData:
-            return "无效数据"
+            return "Invalid data"
         case .keyDerivationFailed:
-            return "密钥派生失败"
+            return "Key derivation failed"
         }
     }
 }
@@ -36,7 +36,7 @@ final class CryptoService {
         self.key = SymmetricKey(data: keyData)
     }
 
-    // 简化版本：直接从主密码派生固定密钥
+    // Simplified version: derive fixed key directly from master password
     init(masterPassword: String) throws {
         let passwordData = masterPassword.data(using: .utf8)!
         let hash = SHA256.hash(data: passwordData)
@@ -73,7 +73,7 @@ final class CryptoService {
         return salt
     }
 
-    // 用主密码加密数据（用于备份恢复）
+    // Encrypt data with master password (for backup/restore)
     static func encryptWithPassword(_ password: String, _ data: Data) throws -> Data {
         let salt = generateSalt()
         let key = try deriveKey(from: password, salt: salt)
@@ -83,11 +83,11 @@ final class CryptoService {
             throw CryptoError.encryptionFailed
         }
         
-        // 合并 salt + encrypted data
+        // Combine salt + encrypted data
         return salt + combined
     }
 
-    // 用主密码解密数据
+    // Decrypt data with master password
     static func decryptWithPassword(_ password: String, _ encryptedData: Data) throws -> Data {
         guard encryptedData.count > 32 else {
             throw CryptoError.invalidData
@@ -137,7 +137,7 @@ final class CryptoService {
         return try decoder.decode(PasswordStore.self, from: decryptedData)
     }
 
-    // 加密字符串（用于密码字段）
+    // Encrypt string (for password field)
     func encryptString(_ string: String) throws -> String {
         guard let data = string.data(using: .utf8) else {
             throw CryptoError.invalidData
@@ -146,7 +146,7 @@ final class CryptoService {
         return encrypted.base64EncodedString()
     }
 
-    // 解密字符串（用于密码字段）
+    // Decrypt string (for password field)
     func decryptString(_ encryptedString: String) throws -> String {
         guard let data = Data(base64Encoded: encryptedString) else {
             throw CryptoError.invalidData

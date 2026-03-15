@@ -93,11 +93,11 @@ final class PasswordGenerator {
 }
 
 enum PasswordStrength: String, CaseIterable {
-    case veryWeak = "非常弱"
-    case weak = "弱"
-    case medium = "中等"
-    case strong = "强"
-    case veryStrong = "非常强"
+    case veryWeak = "Very Weak"
+    case weak = "Weak"
+    case medium = "Medium"
+    case strong = "Strong"
+    case veryStrong = "Very Strong"
 
     var color: String {
         switch self {

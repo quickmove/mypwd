@@ -10,13 +10,13 @@ enum KeychainError: Error, LocalizedError {
     var errorDescription: String? {
         switch self {
         case .duplicateItem:
-            return "数据已存在"
+            return "Item already exists"
         case .itemNotFound:
-            return "数据未找到"
+            return "Item not found"
         case .unexpectedStatus(let status):
-            return "Keychain 错误: \(status)"
+            return "Keychain error: \(status)"
         case .invalidData:
-            return "无效数据"
+            return "Invalid data"
         }
     }
 }

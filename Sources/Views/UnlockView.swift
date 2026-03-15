@@ -14,7 +14,7 @@ struct UnlockView: View {
                 .font(.system(size: 64))
                 .foregroundStyle(.blue)
 
-            Text("解锁密码库")
+            Text("Unlock Password Vault")
                 .font(.title)
                 .fontWeight(.semibold)
 
@@ -25,7 +25,7 @@ struct UnlockView: View {
                             Image(systemName: biometryIcon)
                                 .font(.title2)
                             VStack(alignment: .leading) {
-                                Text("使用 \(biometryName) 解锁")
+                                Text("Unlock with \(biometryName)")
                                     .font(.headline)
                             }
                             Spacer()
@@ -45,7 +45,7 @@ struct UnlockView: View {
                             .foregroundStyle(.red)
                     }
                 } else {
-                    Text("TouchID 不可用")
+                    Text("TouchID not available")
                         .foregroundStyle(.secondary)
                 }
             }
@@ -74,7 +74,7 @@ struct UnlockView: View {
         case .faceID:
             return "Face ID"
         default:
-            return "生物识别"
+            return "Biometrics"
         }
     }
 
@@ -83,7 +83,7 @@ struct UnlockView: View {
             do {
                 try await appState.unlockWithBiometrics()
             } catch AuthenticationError.cancelled {
-                // 用户取消
+                // User cancelled
             } catch {
                 await MainActor.run {
                     errorMessage = error.localizedDescription

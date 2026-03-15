@@ -17,11 +17,11 @@ struct MainView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            // 锁定倒计时栏
+            // Lock countdown bar
             HStack {
                 Image(systemName: "lock.fill")
                     .foregroundStyle(appState.remainingSeconds <= 10 ? .orange : .secondary)
-                Text("\(appState.remainingSeconds) 秒后自动锁定")
+                Text("\(appState.remainingSeconds) seconds until auto-lock")
                     .font(.caption)
                     .foregroundStyle(appState.remainingSeconds <= 10 ? .orange : .secondary)
                 Spacer()
@@ -70,7 +70,7 @@ struct MainView: View {
                 if let item = selectedItem {
                     PasswordDetailView(item: item, onEdit: { selectedItem = nil }, onDelete: { selectedItem = nil })
                 } else {
-                    Text("选择一个密码项")
+                    Text("Select a password item")
                         .foregroundStyle(.secondary)
                 }
             }
@@ -96,20 +96,20 @@ struct MainView: View {
             }
         }
         .onReceive(NotificationCenter.default.publisher(for: NSControl.textDidBeginEditingNotification)) { _ in
-            // 输入框获得焦点时记录活动并暂停锁定
+            // Record activity and pause lock when text field gains focus
             NotificationCenter.default.post(name: .userActivityRecorded, object: nil)
             NotificationCenter.default.post(name: .pauseAutoLock, object: nil)
         }
         .onReceive(NotificationCenter.default.publisher(for: NSControl.textDidEndEditingNotification)) { _ in
-            // 输入框失去焦点时恢复锁定
+            // Resume lock when text field loses focus
             NotificationCenter.default.post(name: .resumeAutoLock, object: nil)
         }
         .onReceive(NotificationCenter.default.publisher(for: NSControl.textDidChangeNotification)) { _ in
-            // 输入框内容变化时记录活动
+            // Record activity when text field content changes
             NotificationCenter.default.post(name: .userActivityRecorded, object: nil)
         }
         .onReceive(NotificationCenter.default.publisher(for: NSWindow.didBecomeKeyNotification)) { _ in
-            // 应用获得焦点时记录活动
+            // Record activity when app gains focus
             NotificationCenter.default.post(name: .userActivityRecorded, object: nil)
         }
     }

@@ -87,3 +87,7 @@ MyPwd/
 - 加密密钥存储在 Keychain 中，受 Touch ID 保护
 - 密码数据使用 AES-GCM-256 加密存储
 - 支持生物识别快速解锁
+
+---
+
+[English Version](./README-en.md)

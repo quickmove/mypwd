@@ -37,7 +37,7 @@ struct PasswordItem: Codable, Identifiable, Equatable, Hashable {
         if let urlHost = URL(string: url)?.host {
             return urlHost
         }
-        return url.isEmpty ? "未命名" : url
+        return url.isEmpty ? "Unnamed" : url
     }
 }
 

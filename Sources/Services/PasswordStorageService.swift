@@ -10,13 +10,13 @@ enum StorageError: Error, LocalizedError {
     var errorDescription: String? {
         switch self {
         case .notSetup:
-            return "请先设置主密码"
+            return "Please set master password first"
         case .loadFailed:
-            return "加载密码库失败"
+            return "Failed to load password vault"
         case .saveFailed:
-            return "保存密码库失败"
+            return "Failed to save password vault"
         case .invalidPassword:
-            return "密码错误"
+            return "Invalid password"
         }
     }
 }
@@ -29,7 +29,7 @@ final class PasswordStorageService {
 
     private let fileManager = FileManager.default
 
-    // 默认路径
+    // Default path
     private var defaultStoreURL: URL {
         let appSupport = fileManager.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
         let appDir = appSupport.appendingPathComponent("MyPwd", isDirectory: true)
@@ -41,7 +41,7 @@ final class PasswordStorageService {
         return appDir.appendingPathComponent("mypwd.json")
     }
 
-    // 用户自定义路径
+    // User custom path
     var customStoreURL: URL? {
         get {
             guard let data = try? KeychainService.shared.load(forKey: KeychainService.Keys.customStorePath),
@@ -72,22 +72,22 @@ final class PasswordStorageService {
     private init() {}
 
     func setup(masterPassword: String, customPath: URL? = nil) throws {
-        // 保存自定义路径
+        // Save custom path
         if let path = customPath {
             customStoreURL = path
         }
 
-        // 将主密钥存入 Keychain，用 TouchID 保护
+        // Store master key in Keychain, protected by TouchID
         let keyData = masterPassword.data(using: .utf8)!
         try KeychainServiceWithBiometric.shared.saveKey(data: keyData, forKey: "masterKey")
 
-        // 确保目录存在
+        // Ensure directory exists
         let directory = storeURL.deletingLastPathComponent()
         if !fileManager.fileExists(atPath: directory.path) {
             try fileManager.createDirectory(at: directory, withIntermediateDirectories: true)
         }
 
-        // 创建空存储（明文 JSON 格式）
+        // Create empty store (plain JSON format)
         let crypto = try CryptoService(masterPassword: masterPassword)
         let emptyStore = PasswordStore()
         let encoder = JSONEncoder()
@@ -100,27 +100,27 @@ final class PasswordStorageService {
         self.currentStore = emptyStore
     }
 
-    // 导入已存在的密码库文件
+    // Import existing password vault file
     func importExistingStore(masterPassword: String) throws {
-        // 确保文件存在
+        // Ensure file exists
         guard fileManager.fileExists(atPath: storeURL.path) else {
             throw StorageError.loadFailed
         }
 
-        // 将主密钥存入 Keychain，用 TouchID 保护
+        // Store master key in Keychain, protected by TouchID
         let keyData = masterPassword.data(using: .utf8)!
         try KeychainServiceWithBiometric.shared.saveKey(data: keyData, forKey: "masterKey")
 
-        // 解密并加载现有数据
+        // Decrypt and load existing data
         let crypto = try CryptoService(masterPassword: masterPassword)
 
-        // 读取明文 JSON
+        // Read plain JSON
         let jsonData = try Data(contentsOf: storeURL)
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .iso8601
         let store = try decoder.decode(PasswordStore.self, from: jsonData)
 
-        // 解密每个密码
+        // Decrypt each password
         var decryptedStore = store
         for i in 0..<decryptedStore.items.count {
             if !decryptedStore.items[i].password.isEmpty {
@@ -137,7 +137,7 @@ final class PasswordStorageService {
     }
 
     func unlockWithBiometrics() throws {
-        // 从 Keychain 获取主密钥（TouchID 保护）
+        // Get master key from Keychain (TouchID protected)
         guard let masterKeyData = try KeychainServiceWithBiometric.shared.loadKeyWithBiometrics(forKey: "masterKey"),
               let masterKey = String(data: masterKeyData, encoding: .utf8) else {
             throw StorageError.notSetup
@@ -157,13 +157,13 @@ final class PasswordStorageService {
             return
         }
 
-        // 读取明文 JSON
+        // Read plain JSON
         let jsonData = try Data(contentsOf: storeURL)
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .iso8601
         let store = try decoder.decode(PasswordStore.self, from: jsonData)
 
-        // 解密每个密码
+        // Decrypt each password
         var decryptedStore = store
         for i in 0..<decryptedStore.items.count {
             if !decryptedStore.items[i].password.isEmpty {
@@ -191,7 +191,7 @@ final class PasswordStorageService {
 
         var store = getStore()
 
-        // 准备保存到文件的加密版本
+        // Prepare encrypted version to save to file
         var encryptedItem = item
         encryptedItem.password = try crypto.encryptString(item.password)
 
@@ -206,7 +206,7 @@ final class PasswordStorageService {
         }
         store.lastUpdated = Date()
 
-        // 准备加密后的存储用于保存到文件
+        // Prepare encrypted store for saving to file
         var encryptedStore = store
         for i in 0..<encryptedStore.items.count {
             if !encryptedStore.items[i].password.isEmpty {
@@ -214,20 +214,20 @@ final class PasswordStorageService {
             }
         }
 
-        // 保存为明文 JSON（密码字段已加密）
+        // Save as plain JSON (password fields already encrypted)
         let encoder = JSONEncoder()
         encoder.dateEncodingStrategy = .iso8601
         encoder.outputFormatting = .prettyPrinted
         let jsonData = try encoder.encode(encryptedStore)
         try jsonData.write(to: storeURL)
 
-        // currentStore 保持解密状态
+        // currentStore keeps decrypted state
         currentStore = store
 
-        // 自动提交并推送到 Git
+        // Auto-commit and push to Git
         if GitService.shared.isConfigured && GitService.shared.isGitRepository {
             Task {
-                let message = isNewItem ? "添加密码: \(item.title)" : "更新密码: \(item.title)"
+                let message = isNewItem ? "Add password: \(item.title)" : "Update password: \(item.title)"
                 do {
                     try await GitService.shared.sync(message: message)
                 } catch {
@@ -244,13 +244,13 @@ final class PasswordStorageService {
 
         var store = getStore()
 
-        // 找到要删除的密码项以便记录日志
+        // Find the password item to delete for logging
         let itemToDelete = store.items.first { $0.id == id }
 
         store.items.removeAll { $0.id == id }
         store.lastUpdated = Date()
 
-        // 准备加密后的存储用于保存到文件
+        // Prepare encrypted store for saving to file
         var encryptedStore = store
         for i in 0..<encryptedStore.items.count {
             if !encryptedStore.items[i].password.isEmpty {
@@ -258,20 +258,20 @@ final class PasswordStorageService {
             }
         }
 
-        // 保存为明文 JSON（密码字段已加密）
+        // Save as plain JSON (password fields already encrypted)
         let encoder = JSONEncoder()
         encoder.dateEncodingStrategy = .iso8601
         encoder.outputFormatting = .prettyPrinted
         let jsonData = try encoder.encode(encryptedStore)
         try jsonData.write(to: storeURL)
 
-        // currentStore 保持解密状态
+        // currentStore keeps decrypted state
         currentStore = store
 
-        // 自动提交并推送到 Git
+        // Auto-commit and push to Git
         if GitService.shared.isConfigured && GitService.shared.isGitRepository {
             Task {
-                let message = "删除密码: \(itemToDelete?.title ?? "未知")"
+                let message = "Delete password: \(itemToDelete?.title ?? "Unknown")"
                 do {
                     try await GitService.shared.sync(message: message)
                 } catch {

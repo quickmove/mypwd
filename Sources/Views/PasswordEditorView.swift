@@ -25,14 +25,14 @@ struct PasswordEditorView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            // 标题栏
+            // Title bar
             HStack {
-                Text(isEditing ? "编辑密码" : "添加密码")
+                Text(isEditing ? "Edit Password" : "Add Password")
                     .font(.headline)
 
                 Spacer()
 
-                Button("取消") {
+                Button("Cancel") {
                     onDismiss(false)
                 }
                 .buttonStyle(.borderless)
@@ -42,36 +42,36 @@ struct PasswordEditorView: View {
 
             Divider()
 
-            // 表单
+            // Form
             Form {
                 Section {
-                    TextField("标题", text: $title)
+                    TextField("Title", text: $title)
                         .textFieldStyle(.roundedBorder)
 
                     TextField("URL", text: $url)
                         .textFieldStyle(.roundedBorder)
 
-                    TextField("用户名", text: $username)
+                    TextField("Username", text: $username)
                         .textFieldStyle(.roundedBorder)
 
                     HStack {
-                        SecureField("密码", text: $password)
+                        SecureField("Password", text: $password)
                             .textFieldStyle(.roundedBorder)
 
                         Button(action: { showGenerator = true }) {
                             Image(systemName: "wand.and.stars")
                         }
                         .buttonStyle(.bordered)
-                        .help("生成密码")
+                        .help("Generate password")
                     }
 
-                    TextField("备注", text: $note, axis: .vertical)
+                    TextField("Notes", text: $note, axis: .vertical)
                         .textFieldStyle(.roundedBorder)
                         .lineLimit(3...5)
                 }
 
                 if !password.isEmpty {
-                    Section("密码强度") {
+                    Section("Password Strength") {
                         PasswordStrengthIndicator(password: password)
                     }
                 }
@@ -80,7 +80,7 @@ struct PasswordEditorView: View {
 
             Divider()
 
-            // 底部按钮
+            // Bottom buttons
             HStack {
                 if let error = errorMessage {
                     Text(error)
@@ -90,7 +90,7 @@ struct PasswordEditorView: View {
 
                 Spacer()
 
-                Button("保存") {
+                Button("Save") {
                     save()
                 }
                 .buttonStyle(.borderedProminent)
@@ -109,7 +109,7 @@ struct PasswordEditorView: View {
                 }
         )
         .onAppear {
-            // 编辑时重置活动计时并暂停自动锁定
+            // Reset activity timer and pause auto-lock when editing
             NotificationCenter.default.post(name: .userActivityRecorded, object: nil)
             NotificationCenter.default.post(name: .pauseAutoLock, object: nil)
 
@@ -122,7 +122,7 @@ struct PasswordEditorView: View {
             }
         }
         .onDisappear {
-            // 恢复自动锁定
+            // Resume auto-lock
             NotificationCenter.default.post(name: .resumeAutoLock, object: nil)
         }
         .sheet(isPresented: $showGenerator) {
@@ -145,7 +145,7 @@ struct PasswordEditorView: View {
 
     private func save() {
         guard isValid else {
-            errorMessage = "请输入密码"
+            errorMessage = "Please enter a password"
             return
         }
 

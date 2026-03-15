@@ -4,23 +4,23 @@ import AppKit
 struct SetupView: View {
     @EnvironmentObject var appState: AppState
 
-    @State private var currentStep = 0  // 0: 设置密码, 1: 选择路径, 2: Git 配置
+    @State private var currentStep = 0  // 0: Set password, 1: Choose path, 2: Git config
     @State private var masterPassword = ""
     @State private var confirmPassword = ""
     @State private var errorMessage: String?
     @State private var isLoading = false
     @State private var storePath: URL?
     @State private var showExistingFileAlert = false
-    @State private var existingFileChoice: Bool? = nil  // nil: 未选择, true: 使用现有, false: 创建新
+    @State private var existingFileChoice: Bool? = nil  // nil: Not chosen, true: Use existing, false: Create new
 
-    // Git 配置
+    // Git config
     @State private var isGitEnabled = false
     @State private var repoURL = ""
     @State private var username = ""
     @State private var password = ""
     @State private var showPassword = false
 
-    // 默认存储位置
+    // Default storage location
     private var defaultStoreURL: URL {
         let appSupport = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
         let appDir = appSupport.appendingPathComponent("MyPwd")
@@ -33,7 +33,7 @@ struct SetupView: View {
                 .font(.system(size: 64))
                 .foregroundStyle(.blue)
 
-            Text(currentStep == 0 ? "设置主密码" : (currentStep == 1 ? "选择存储位置" : "Git 仓库配置"))
+            Text(currentStep == 0 ? "Set Master Password" : (currentStep == 1 ? "Choose Storage Location" : "Git Repository Configuration"))
                 .font(.title)
                 .fontWeight(.semibold)
 
@@ -57,13 +57,13 @@ struct SetupView: View {
             }
 
             if currentStep == 0 {
-                // 步骤 1: 设置主密码
+                // Step 1: Set master password
                 stepOneView
             } else if currentStep == 1 {
-                // 步骤 2: 选择存储位置
+                // Step 2: Choose storage location
                 stepTwoView
             } else {
-                // 步骤 3: Git 配置
+                // Step 3: Git configuration
                 stepThreeView
             }
         }
@@ -74,36 +74,36 @@ struct SetupView: View {
         .onAppear {
             storePath = defaultStoreURL
         }
-        .alert("发现现有密码库", isPresented: $showExistingFileAlert) {
-            Button("使用现有文件") {
+        .alert("Existing Password Vault Found", isPresented: $showExistingFileAlert) {
+            Button("Use Existing File") {
                 existingFileChoice = true
             }
-            Button("创建新文件") {
+            Button("Create New File") {
                 existingFileChoice = false
             }
         } message: {
-            Text("该路径下已存在密码库文件，要使用现有文件还是创建新文件？")
+            Text("A password vault file already exists at this location. Use existing file or create new?")
         }
     }
 
-    // 步骤 1: 设置主密码
+    // Step 1: Set master password
     private var stepOneView: some View {
         VStack(alignment: .leading, spacing: 16) {
             VStack(alignment: .leading, spacing: 8) {
-                Text("主密码")
+                Text("Master Password")
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
 
-                SecureField("请输入主密码", text: $masterPassword)
+                SecureField("Enter master password", text: $masterPassword)
                     .textFieldStyle(.roundedBorder)
             }
 
             VStack(alignment: .leading, spacing: 8) {
-                Text("确认密码")
+                Text("Confirm Password")
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
 
-                SecureField("请再次输入主密码", text: $confirmPassword)
+                SecureField("Enter master password again", text: $confirmPassword)
                     .textFieldStyle(.roundedBorder)
             }
 
@@ -115,30 +115,30 @@ struct SetupView: View {
 
             Button(action: {
                 guard isValidPassword else {
-                    errorMessage = "密码至少6位且两次输入一致"
+                    errorMessage = "Password must be at least 6 characters and match"
                     return
                 }
                 errorMessage = nil
                 currentStep = 1
             }) {
-                Text("下一步")
+                Text("Next")
                     .frame(width: 200)
             }
             .buttonStyle(.borderedProminent)
             .disabled(!isPasswordEntered)
 
-            Text("请妥善保管主密码，忘记后无法恢复")
+            Text("Please keep your master password safe. It cannot be recovered if forgotten.")
                 .font(.caption)
                 .foregroundStyle(.secondary)
         }
         .frame(width: 350)
     }
 
-    // 步骤 2: 选择存储位置
+    // Step 2: Choose storage location
     private var stepTwoView: some View {
         VStack(alignment: .leading, spacing: 16) {
             VStack(alignment: .leading, spacing: 8) {
-                Text("存储位置")
+                Text("Storage Location")
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
 
@@ -168,19 +168,19 @@ struct SetupView: View {
             }
 
             HStack(spacing: 16) {
-                Button("上一步") {
+                Button("Previous") {
                     currentStep = 0
                 }
                 .buttonStyle(.bordered)
 
                 Button(action: {
-                    // 检查并处理现有文件
+                    // Check and handle existing file
                     proceedFromStep2()
                 }) {
                     if isLoading {
                         ProgressIndicator()
                     } else {
-                        Text("下一步")
+                        Text("Next")
                             .frame(width: 100)
                     }
                 }
@@ -188,22 +188,22 @@ struct SetupView: View {
                 .disabled(isLoading)
             }
 
-            Text("请妥善保管主密码，忘记后无法恢复")
+            Text("Please keep your master password safe. It cannot be recovered if forgotten.")
                 .font(.caption)
                 .foregroundStyle(.secondary)
         }
         .frame(width: 350)
     }
 
-    // 步骤 3: Git 配置
+    // Step 3: Git configuration
     private var stepThreeView: some View {
         VStack(alignment: .leading, spacing: 16) {
-            Text("Git 仓库配置")
+            Text("Git Repository Configuration")
                 .font(.headline)
 
             VStack(alignment: .leading, spacing: 12) {
                 VStack(alignment: .leading, spacing: 4) {
-                    Text("仓库地址")
+                    Text("Repository URL")
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
 
@@ -212,25 +212,25 @@ struct SetupView: View {
                 }
 
                 VStack(alignment: .leading, spacing: 4) {
-                    Text("用户名")
+                    Text("Username")
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
 
-                    TextField("GitHub 用户名或 Token", text: $username)
+                    TextField("GitHub username or Token", text: $username)
                         .textFieldStyle(.roundedBorder)
                 }
 
                 VStack(alignment: .leading, spacing: 4) {
-                    Text("密码 / Personal Access Token")
+                    Text("Password / Personal Access Token")
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
 
                     HStack {
                         if showPassword {
-                            TextField("密码或 Token", text: $password)
+                            TextField("Password or Token", text: $password)
                                 .textFieldStyle(.roundedBorder)
                         } else {
-                            SecureField("密码或 Token", text: $password)
+                            SecureField("Password or Token", text: $password)
                                 .textFieldStyle(.roundedBorder)
                         }
 
@@ -243,7 +243,7 @@ struct SetupView: View {
                     }
                 }
 
-                Text("私有仓库需要提供用户名和密码或 Personal Access Token")
+                Text("Private repositories require username and password or Personal Access Token")
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }
@@ -255,7 +255,7 @@ struct SetupView: View {
             }
 
             HStack(spacing: 16) {
-                Button("上一步") {
+                Button("Previous") {
                     currentStep = 1
                 }
                 .buttonStyle(.bordered)
@@ -264,7 +264,7 @@ struct SetupView: View {
                     if isLoading {
                         ProgressIndicator()
                     } else {
-                        Text("完成并同步")
+                        Text("Finish & Sync")
                             .frame(width: 120)
                     }
                 }
@@ -292,8 +292,8 @@ struct SetupView: View {
         panel.canChooseDirectories = true
         panel.canCreateDirectories = true
         panel.allowsMultipleSelection = false
-        panel.prompt = "选择"
-        panel.message = "选择密码文件存储目录"
+        panel.prompt = "Select"
+        panel.message = "Choose password file storage directory"
 
         if panel.runModal() == .OK, let url = panel.url {
             storePath = url.appendingPathComponent("mypwd.json")
@@ -301,7 +301,7 @@ struct SetupView: View {
         }
     }
 
-    // 将路径缩短显示，用 ~ 代替用户目录
+    // Shorten path display, use ~ instead of user directory
     private func shortPath(_ url: URL?) -> String {
         guard let url = url else { return "" }
         let homeDir = FileManager.default.homeDirectoryForCurrentUser.path
@@ -322,29 +322,29 @@ struct SetupView: View {
 
     private func checkExistingFileForStep2() {
         guard let path = storePath else {
-            // 没有选择路径，直接进入下一步
+            // No path selected, proceed to next step
             currentStep = 2
             return
         }
 
         if FileManager.default.fileExists(atPath: path.path) {
-            // 存在现有文件，弹出 alert
+            // Existing file exists, show alert
             showExistingFileAlert = true
-            // 停留在当前步骤，等待用户选择
+            // Stay on current step, wait for user selection
         } else {
-            // 没有现有文件，直接进入下一步
+            // No existing file, proceed to next step
             currentStep = 2
         }
     }
 
-    // 处理第2步的"下一步"按钮点击
+    // Handle "Next" button click on step 2
     private func proceedFromStep2() {
-        // 如果已有选择，直接使用；否则检查文件
+        // If already have a choice, use it; otherwise check file
         if let choice = existingFileChoice {
-            // 用户已选择过，使用之前的选择，进入下一步
+            // User has made a choice before, use previous choice, proceed
             currentStep = 2
         } else {
-            // 检查是否有现有文件
+            // Check if there's an existing file
             checkExistingFileForStep2()
         }
     }
@@ -366,14 +366,14 @@ struct SetupView: View {
         isLoading = true
         errorMessage = nil
 
-        // 使用用户在第2步的选择
+        // Use user's choice from step 2
         let importExisting = existingFileChoice ?? false
 
-        // 完成基础设置
+        // Complete basic setup
         do {
             try finishSetup(importExisting: importExisting)
 
-            // 配置 Git 并克隆仓库
+            // Configure Git and clone repository
             GitService.shared.configure(repoURL: repoURL, username: username, password: password)
 
             Task {
@@ -381,13 +381,13 @@ struct SetupView: View {
                     try await GitService.shared.clone()
                 } catch {
                     await MainActor.run {
-                        errorMessage = "Git 克隆失败: \(error.localizedDescription)"
+                        errorMessage = "Git clone failed: \(error.localizedDescription)"
                         isLoading = false
                     }
                 }
             }
         } catch {
-            errorMessage = "设置失败: \(error.localizedDescription)"
+            errorMessage = "Setup failed: \(error.localizedDescription)"
             isLoading = false
         }
     }
@@ -403,7 +403,7 @@ struct SetupView: View {
                 try appState.setup(masterPassword: masterPassword, customPath: storePath)
             }
         } catch {
-            errorMessage = "设置失败: \(error.localizedDescription)"
+            errorMessage = "Setup failed: \(error.localizedDescription)"
         }
 
         isLoading = false

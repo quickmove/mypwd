@@ -14,10 +14,10 @@ struct PasswordGeneratorView: View {
 
     var body: some View {
         VStack(spacing: 20) {
-            Text("密码生成器")
+            Text("Password Generator")
                 .font(.headline)
 
-            // 生成结果
+            // Generated result
             HStack {
                 if showPassword {
                     Text(generatedPassword)
@@ -44,10 +44,10 @@ struct PasswordGeneratorView: View {
             .background(Color(nsColor: .textBackgroundColor))
             .cornerRadius(8)
 
-            // 长度滑块
+            // Length slider
             VStack(alignment: .leading, spacing: 8) {
                 HStack {
-                    Text("长度")
+                    Text("Length")
                     Spacer()
                     Text("\(length)")
                         .foregroundStyle(.secondary)
@@ -59,25 +59,25 @@ struct PasswordGeneratorView: View {
                 ), in: 8...32, step: 1)
             }
 
-            // 字符选项
+            // Character options
             VStack(alignment: .leading, spacing: 12) {
-                Toggle("大写字母 (A-Z)", isOn: $includeUppercase)
-                Toggle("小写字母 (a-z)", isOn: $includeLowercase)
-                Toggle("数字 (0-9)", isOn: $includeNumbers)
-                Toggle("符号 (!@#$%)", isOn: $includeSymbols)
+                Toggle("Uppercase (A-Z)", isOn: $includeUppercase)
+                Toggle("Lowercase (a-z)", isOn: $includeLowercase)
+                Toggle("Numbers (0-9)", isOn: $includeNumbers)
+                Toggle("Symbols (!@#$%)", isOn: $includeSymbols)
             }
             .toggleStyle(.checkbox)
 
-            // 按钮
+            // Buttons
             HStack {
-                Button("重新生成") {
+                Button("Regenerate") {
                     generate()
                 }
                 .buttonStyle(.bordered)
 
                 Spacer()
 
-                Button("使用此密码") {
+                Button("Use This Password") {
                     onUse(generatedPassword)
                 }
                 .buttonStyle(.borderedProminent)

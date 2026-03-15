@@ -11,13 +11,13 @@ enum KeychainBiometricError: Error, LocalizedError {
     var errorDescription: String? {
         switch self {
         case .saveFailed:
-            return "保存密钥失败"
+            return "Failed to save key"
         case .loadFailed:
-            return "加载密钥失败"
+            return "Failed to load key"
         case .notFound:
-            return "密钥未找到"
+            return "Key not found"
         case .authenticationFailed:
-            return "生物识别验证失败"
+            return "Biometric authentication failed"
         }
     }
 }
@@ -31,10 +31,10 @@ final class KeychainServiceWithBiometric {
     private init() {}
 
     func saveKey(data: Data, forKey key: String) throws {
-        // 先尝试删除已存在的项
+        // Try to delete existing item first
         try? deleteKey(forKey: key)
         
-        // 使用普通方式存储（首次设置时可能没有注册生物识别）
+        // Store using normal method (biometrics may not be enrolled during initial setup)
         let query: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,
             kSecAttrService as String: service,
@@ -51,10 +51,10 @@ final class KeychainServiceWithBiometric {
     }
     
     func updateKeyWithBiometricProtection(data: Data, forKey key: String) throws {
-        // 先删除旧的
+        // Delete old one first
         try? deleteKey(forKey: key)
         
-        // 创建访问控制，要求生物识别
+        // Create access control requiring biometrics
         var error: Unmanaged<CFError>?
         guard let accessControl = SecAccessControlCreateWithFlags(
             kCFAllocatorDefault,
@@ -62,7 +62,7 @@ final class KeychainServiceWithBiometric {
             .biometryCurrentSet,
             &error
         ) else {
-            // 如果创建失败，用普通方式保存
+            // If creation fails, save with normal method
             try saveKey(data: data, forKey: key)
             return
         }
@@ -77,7 +77,7 @@ final class KeychainServiceWithBiometric {
 
         let status = SecItemAdd(query as CFDictionary, nil)
         
-        // 如果失败（可能是没有注册生物识别），用普通方式保存
+        // If failed (possibly biometrics not enrolled), save with normal method
         if status != errSecSuccess {
             try saveKey(data: data, forKey: key)
         }
@@ -108,9 +108,9 @@ final class KeychainServiceWithBiometric {
     
     func loadKeyWithBiometrics(forKey key: String) throws -> Data? {
         let context = LAContext()
-        context.localizedReason = "解锁密码库"
+        context.localizedReason = "Unlock password vault"
         
-        // 先尝试用生物识别加载
+        // Try to load with biometrics first
         let queryWithBiometric: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,
             kSecAttrService as String: service,
@@ -123,17 +123,17 @@ final class KeychainServiceWithBiometric {
         var result: AnyObject?
         let status = SecItemCopyMatching(queryWithBiometric as CFDictionary, &result)
         
-        // 如果生物识别成功
+        // If biometrics succeeded
         if status == errSecSuccess {
             return result as? Data
         }
         
-        // 如果是 authFailed 或 userCanceled，抛出错误
+        // If authFailed or userCanceled, throw error
         if status == errSecAuthFailed || status == errSecUserCanceled {
             throw KeychainBiometricError.authenticationFailed
         }
         
-        // 其他错误，尝试普通加载
+        // Other errors, try normal loading
         return try loadKey(forKey: key)
     }
 

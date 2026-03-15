@@ -13,7 +13,9 @@
 		2749F4A8677F692B420C23A8 /* PasswordGeneratorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFDA01D7474F15D2CBEA31FB /* PasswordGeneratorView.swift */; };
 		29C1F18C8F52D45C5384793E /* PasswordStorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799AB738B754BDFAD93799ED /* PasswordStorageService.swift */; };
 		544F4BBEC90574DBDFB62A9B /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6106CB084AB5169D19301C5 /* KeychainService.swift */; };
+		613CE44D6FE8982EF32F5213 /* LocalizationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B693C83C02D7F316D84D280E /* LocalizationService.swift */; };
 		736CEF78F1476282A42AA5AB /* KeychainServiceWithBiometric.swift in Sources */ = {isa = PBXBuildFile; fileRef = C754342C549785DD0AD591E1 /* KeychainServiceWithBiometric.swift */; };
+		77341C4DEFFF9AFE5F90A0FF /* LocalizedStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D0C08351A216EBF2C3834B /* LocalizedStrings.swift */; };
 		782A382B37A3BAF86A0CBF93 /* PasswordEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC759488DD9BE92ACE5FECB /* PasswordEditorView.swift */; };
 		8C0FFD3CFD02B62885C0E3EB /* CryptoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF1E8B7FA7DFC450522BA42 /* CryptoService.swift */; };
 		9016406FBE9B5DD9BACB9CA8 /* GitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5906CAC9FB50BE965AA9779A /* GitService.swift */; };
@@ -33,12 +35,14 @@
 		2AF1E8B7FA7DFC450522BA42 /* CryptoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoService.swift; sourceTree = "<group>"; };
 		43D7A6F2CE59E0C700922CC6 /* PasswordItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordItem.swift; sourceTree = "<group>"; };
 		4884AA398F12692088FFBAC0 /* AuthenticationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationService.swift; sourceTree = "<group>"; };
+		53D0C08351A216EBF2C3834B /* LocalizedStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizedStrings.swift; sourceTree = "<group>"; };
 		55930B8FB0657DCDD1D9ED99 /* PasswordDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordDetailView.swift; sourceTree = "<group>"; };
 		5906CAC9FB50BE965AA9779A /* GitService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitService.swift; sourceTree = "<group>"; };
 		799AB738B754BDFAD93799ED /* PasswordStorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordStorageService.swift; sourceTree = "<group>"; };
 		8AE8EFAFD9CEF112ECE67292 /* UnlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnlockView.swift; sourceTree = "<group>"; };
 		9B13A035B1624127DA113F03 /* MyPwdApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPwdApp.swift; sourceTree = "<group>"; };
 		A85DFACFFDBE78E94D1E8BE9 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		B693C83C02D7F316D84D280E /* LocalizationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizationService.swift; sourceTree = "<group>"; };
 		C754342C549785DD0AD591E1 /* KeychainServiceWithBiometric.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainServiceWithBiometric.swift; sourceTree = "<group>"; };
 		CFDA01D7474F15D2CBEA31FB /* PasswordGeneratorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordGeneratorView.swift; sourceTree = "<group>"; };
 		E6106CB084AB5169D19301C5 /* KeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
@@ -87,6 +91,8 @@
 				5906CAC9FB50BE965AA9779A /* GitService.swift */,
 				E6106CB084AB5169D19301C5 /* KeychainService.swift */,
 				C754342C549785DD0AD591E1 /* KeychainServiceWithBiometric.swift */,
+				B693C83C02D7F316D84D280E /* LocalizationService.swift */,
+				53D0C08351A216EBF2C3834B /* LocalizedStrings.swift */,
 				EAF7D9C2BAB9E0FD2B00486B /* PasswordGenerator.swift */,
 				799AB738B754BDFAD93799ED /* PasswordStorageService.swift */,
 			);
@@ -189,6 +195,8 @@
 				9016406FBE9B5DD9BACB9CA8 /* GitService.swift in Sources */,
 				544F4BBEC90574DBDFB62A9B /* KeychainService.swift in Sources */,
 				736CEF78F1476282A42AA5AB /* KeychainServiceWithBiometric.swift in Sources */,
+				613CE44D6FE8982EF32F5213 /* LocalizationService.swift in Sources */,
+				77341C4DEFFF9AFE5F90A0FF /* LocalizedStrings.swift in Sources */,
 				25EB8AECACE966941A880931 /* MainView.swift in Sources */,
 				2387C3FE97DE417424B2CB9F /* MyPwdApp.swift in Sources */,
 				A3979F7E9DA30F0548C4619F /* PasswordDetailView.swift in Sources */,

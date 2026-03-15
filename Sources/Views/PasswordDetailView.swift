@@ -38,14 +38,14 @@ struct PasswordDetailView: View {
                         NotificationCenter.default.post(name: .pauseAutoLock, object: nil)
                         showingEditor = true
                     }) {
-                        Label("Edit", systemImage: "pencil")
+                        Label(LocalizedStrings.edit, systemImage: "pencil")
                     }
                     .buttonStyle(.bordered)
 
                     Button(action: {
                         showingDeleteAlert = true
                     }) {
-                        Label("Delete", systemImage: "trash")
+                        Label(LocalizedStrings.delete, systemImage: "trash")
                     }
                     .buttonStyle(.bordered)
                     .tint(.red)
@@ -69,7 +69,7 @@ struct PasswordDetailView: View {
                 // Notes
                 if !item.note.isEmpty {
                     VStack(alignment: .leading, spacing: 8) {
-                        Text("Notes")
+                        Text(LocalizedStrings.notes)
                             .font(.subheadline)
                             .foregroundStyle(.secondary)
 
@@ -80,11 +80,11 @@ struct PasswordDetailView: View {
 
                 // Time information
                 VStack(alignment: .leading, spacing: 4) {
-                    Text("Created: \(item.createdAt.formatted())")
+                    Text("\(LocalizedStrings.created): \(item.createdAt.formatted())")
                         .font(.caption)
                         .foregroundStyle(.tertiary)
 
-                    Text("Updated: \(item.updatedAt.formatted())")
+                    Text("\(LocalizedStrings.updated): \(item.updatedAt.formatted())")
                         .font(.caption)
                         .foregroundStyle(.tertiary)
                 }
@@ -103,14 +103,14 @@ struct PasswordDetailView: View {
                 NotificationCenter.default.post(name: .resumeAutoLock, object: nil)
             }
         }
-        .alert("Confirm Delete", isPresented: $showingDeleteAlert) {
-            Button("Cancel", role: .cancel) { }
-            Button("Delete", role: .destructive) {
+        .alert(LocalizedStrings.confirmDelete, isPresented: $showingDeleteAlert) {
+            Button(LocalizedStrings.cancel, role: .cancel) { }
+            Button(LocalizedStrings.delete, role: .destructive) {
                 try? PasswordStorageService.shared.deleteItem(id: item.id)
                 onDelete()
             }
         } message: {
-            Text("Are you sure you want to delete \"\(item.displayTitle)\"? This action cannot be undone.")
+            Text("\(LocalizedStrings.areYouSureYouWantToDelete) \"\(item.displayTitle)\"? \(LocalizedStrings.thisActionCannotBeUndone)")
         }
         // Hide password when password item changes
         .onChange(of: item.id) { _ in

@@ -33,7 +33,7 @@ struct SetupView: View {
                 .font(.system(size: 64))
                 .foregroundStyle(.blue)
 
-            Text(currentStep == 0 ? "Set Master Password" : (currentStep == 1 ? "Choose Storage Location" : "Git Repository Configuration"))
+            Text(currentStep == 0 ? LocalizedStrings.setMasterPassword : (currentStep == 1 ? LocalizedStrings.chooseStorageLocation : LocalizedStrings.gitRepositoryConfiguration))
                 .font(.title)
                 .fontWeight(.semibold)
 
@@ -74,15 +74,15 @@ struct SetupView: View {
         .onAppear {
             storePath = defaultStoreURL
         }
-        .alert("Existing Password Vault Found", isPresented: $showExistingFileAlert) {
-            Button("Use Existing File") {
+        .alert(LocalizedStrings.existingPasswordVaultFound, isPresented: $showExistingFileAlert) {
+            Button(LocalizedStrings.useExistingFile) {
                 existingFileChoice = true
             }
-            Button("Create New File") {
+            Button(LocalizedStrings.createNewFile) {
                 existingFileChoice = false
             }
         } message: {
-            Text("A password vault file already exists at this location. Use existing file or create new?")
+            Text(LocalizedStrings.passwordVaultFileAlreadyExists)
         }
     }
 
@@ -90,20 +90,20 @@ struct SetupView: View {
     private var stepOneView: some View {
         VStack(alignment: .leading, spacing: 16) {
             VStack(alignment: .leading, spacing: 8) {
-                Text("Master Password")
+                Text(LocalizedStrings.masterPassword)
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
 
-                SecureField("Enter master password", text: $masterPassword)
+                SecureField(LocalizedStrings.enterMasterPassword, text: $masterPassword)
                     .textFieldStyle(.roundedBorder)
             }
 
             VStack(alignment: .leading, spacing: 8) {
-                Text("Confirm Password")
+                Text(LocalizedStrings.confirmPassword)
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
 
-                SecureField("Enter master password again", text: $confirmPassword)
+                SecureField(LocalizedStrings.enterMasterPasswordAgain, text: $confirmPassword)
                     .textFieldStyle(.roundedBorder)
             }
 
@@ -115,19 +115,19 @@ struct SetupView: View {
 
             Button(action: {
                 guard isValidPassword else {
-                    errorMessage = "Password must be at least 6 characters and match"
+                    errorMessage = LocalizedStrings.passwordMustBeAtLeast6Characters
                     return
                 }
                 errorMessage = nil
                 currentStep = 1
             }) {
-                Text("Next")
+                Text(LocalizedStrings.next)
                     .frame(width: 200)
             }
             .buttonStyle(.borderedProminent)
             .disabled(!isPasswordEntered)
 
-            Text("Please keep your master password safe. It cannot be recovered if forgotten.")
+            Text(LocalizedStrings.pleaseKeepYourMasterPasswordSafe)
                 .font(.caption)
                 .foregroundStyle(.secondary)
         }
@@ -138,7 +138,7 @@ struct SetupView: View {
     private var stepTwoView: some View {
         VStack(alignment: .leading, spacing: 16) {
             VStack(alignment: .leading, spacing: 8) {
-                Text("Storage Location")
+                Text(LocalizedStrings.storageLocation)
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
 
@@ -151,7 +151,7 @@ struct SetupView: View {
 
                     Spacer()
 
-                    Button("选择...") {
+                    Button(LocalizedStrings.select) {
                         selectPath()
                     }
                     .buttonStyle(.bordered)
@@ -168,7 +168,7 @@ struct SetupView: View {
             }
 
             HStack(spacing: 16) {
-                Button("Previous") {
+                Button(LocalizedStrings.previous) {
                     currentStep = 0
                 }
                 .buttonStyle(.bordered)
@@ -180,7 +180,7 @@ struct SetupView: View {
                     if isLoading {
                         ProgressIndicator()
                     } else {
-                        Text("Next")
+                        Text(LocalizedStrings.next)
                             .frame(width: 100)
                     }
                 }
@@ -188,7 +188,7 @@ struct SetupView: View {
                 .disabled(isLoading)
             }
 
-            Text("Please keep your master password safe. It cannot be recovered if forgotten.")
+            Text(LocalizedStrings.pleaseKeepYourMasterPasswordSafe)
                 .font(.caption)
                 .foregroundStyle(.secondary)
         }
@@ -198,12 +198,12 @@ struct SetupView: View {
     // Step 3: Git configuration
     private var stepThreeView: some View {
         VStack(alignment: .leading, spacing: 16) {
-            Text("Git Repository Configuration")
+            Text(LocalizedStrings.gitRepositoryConfiguration)
                 .font(.headline)
 
             VStack(alignment: .leading, spacing: 12) {
                 VStack(alignment: .leading, spacing: 4) {
-                    Text("Repository URL")
+                    Text(LocalizedStrings.repositoryURL)
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
 
@@ -212,25 +212,25 @@ struct SetupView: View {
                 }
 
                 VStack(alignment: .leading, spacing: 4) {
-                    Text("Username")
+                    Text(LocalizedStrings.username)
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
 
-                    TextField("GitHub username or Token", text: $username)
+                    TextField(LocalizedStrings.githubUsernameOrToken, text: $username)
                         .textFieldStyle(.roundedBorder)
                 }
 
                 VStack(alignment: .leading, spacing: 4) {
-                    Text("Password / Personal Access Token")
+                    Text(LocalizedStrings.passwordOrPersonalAccessToken)
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
 
                     HStack {
                         if showPassword {
-                            TextField("Password or Token", text: $password)
+                            TextField(LocalizedStrings.passwordOrToken, text: $password)
                                 .textFieldStyle(.roundedBorder)
                         } else {
-                            SecureField("Password or Token", text: $password)
+                            SecureField(LocalizedStrings.passwordOrToken, text: $password)
                                 .textFieldStyle(.roundedBorder)
                         }
 
@@ -243,7 +243,7 @@ struct SetupView: View {
                     }
                 }
 
-                Text("Private repositories require username and password or Personal Access Token")
+                Text(LocalizedStrings.privateRepositoriesRequireUsernameAndPassword)
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }
@@ -255,7 +255,7 @@ struct SetupView: View {
             }
 
             HStack(spacing: 16) {
-                Button("Previous") {
+                Button(LocalizedStrings.previous) {
                     currentStep = 1
                 }
                 .buttonStyle(.bordered)
@@ -264,7 +264,7 @@ struct SetupView: View {
                     if isLoading {
                         ProgressIndicator()
                     } else {
-                        Text("Finish & Sync")
+                        Text(LocalizedStrings.finishAndSync)
                             .frame(width: 120)
                     }
                 }
@@ -381,13 +381,13 @@ struct SetupView: View {
                     try await GitService.shared.clone()
                 } catch {
                     await MainActor.run {
-                        errorMessage = "Git clone failed: \(error.localizedDescription)"
+                        errorMessage = "\(LocalizedStrings.gitCloneFailed): \(error.localizedDescription)"
                         isLoading = false
                     }
                 }
             }
         } catch {
-            errorMessage = "Setup failed: \(error.localizedDescription)"
+            errorMessage = "\(LocalizedStrings.setupFailed): \(error.localizedDescription)"
             isLoading = false
         }
     }
@@ -403,7 +403,7 @@ struct SetupView: View {
                 try appState.setup(masterPassword: masterPassword, customPath: storePath)
             }
         } catch {
-            errorMessage = "Setup failed: \(error.localizedDescription)"
+            errorMessage = "\(LocalizedStrings.setupFailed): \(error.localizedDescription)"
         }
 
         isLoading = false

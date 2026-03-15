@@ -14,7 +14,7 @@ struct PasswordGeneratorView: View {
 
     var body: some View {
         VStack(spacing: 20) {
-            Text("Password Generator")
+            Text(LocalizedStrings.passwordGenerator)
                 .font(.headline)
 
             // Generated result
@@ -47,7 +47,7 @@ struct PasswordGeneratorView: View {
             // Length slider
             VStack(alignment: .leading, spacing: 8) {
                 HStack {
-                    Text("Length")
+                    Text(LocalizedStrings.length)
                     Spacer()
                     Text("\(length)")
                         .foregroundStyle(.secondary)
@@ -61,23 +61,23 @@ struct PasswordGeneratorView: View {
 
             // Character options
             VStack(alignment: .leading, spacing: 12) {
-                Toggle("Uppercase (A-Z)", isOn: $includeUppercase)
-                Toggle("Lowercase (a-z)", isOn: $includeLowercase)
-                Toggle("Numbers (0-9)", isOn: $includeNumbers)
-                Toggle("Symbols (!@#$%)", isOn: $includeSymbols)
+                Toggle(LocalizedStrings.uppercase, isOn: $includeUppercase)
+                Toggle(LocalizedStrings.lowercase, isOn: $includeLowercase)
+                Toggle(LocalizedStrings.numbers, isOn: $includeNumbers)
+                Toggle(LocalizedStrings.symbols, isOn: $includeSymbols)
             }
             .toggleStyle(.checkbox)
 
             // Buttons
             HStack {
-                Button("Regenerate") {
+                Button(LocalizedStrings.regenerate) {
                     generate()
                 }
                 .buttonStyle(.bordered)
 
                 Spacer()
 
-                Button("Use This Password") {
+                Button(LocalizedStrings.useThisPassword) {
                     onUse(generatedPassword)
                 }
                 .buttonStyle(.borderedProminent)

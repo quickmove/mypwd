@@ -27,12 +27,12 @@ struct PasswordEditorView: View {
         VStack(spacing: 0) {
             // Title bar
             HStack {
-                Text(isEditing ? "Edit Password" : "Add Password")
+                Text(isEditing ? LocalizedStrings.editPassword : LocalizedStrings.addPassword)
                     .font(.headline)
 
                 Spacer()
 
-                Button("Cancel") {
+                Button(LocalizedStrings.cancel) {
                     onDismiss(false)
                 }
                 .buttonStyle(.borderless)
@@ -45,17 +45,17 @@ struct PasswordEditorView: View {
             // Form
             Form {
                 Section {
-                    TextField("Title", text: $title)
+                    TextField(LocalizedStrings.title, text: $title)
                         .textFieldStyle(.roundedBorder)
 
-                    TextField("URL", text: $url)
+                    TextField(LocalizedStrings.url, text: $url)
                         .textFieldStyle(.roundedBorder)
 
-                    TextField("Username", text: $username)
+                    TextField(LocalizedStrings.usernameField, text: $username)
                         .textFieldStyle(.roundedBorder)
 
                     HStack {
-                        SecureField("Password", text: $password)
+                        SecureField(LocalizedStrings.password, text: $password)
                             .textFieldStyle(.roundedBorder)
 
                         Button(action: { showGenerator = true }) {
@@ -65,13 +65,13 @@ struct PasswordEditorView: View {
                         .help("Generate password")
                     }
 
-                    TextField("Notes", text: $note, axis: .vertical)
+                    TextField(LocalizedStrings.notes, text: $note, axis: .vertical)
                         .textFieldStyle(.roundedBorder)
                         .lineLimit(3...5)
                 }
 
                 if !password.isEmpty {
-                    Section("Password Strength") {
+                    Section(LocalizedStrings.passwordStrength) {
                         PasswordStrengthIndicator(password: password)
                     }
                 }
@@ -90,7 +90,7 @@ struct PasswordEditorView: View {
 
                 Spacer()
 
-                Button("Save") {
+                Button(LocalizedStrings.save) {
                     save()
                 }
                 .buttonStyle(.borderedProminent)
@@ -145,7 +145,7 @@ struct PasswordEditorView: View {
 
     private func save() {
         guard isValid else {
-            errorMessage = "Please enter a password"
+            errorMessage = LocalizedStrings.pleaseEnterAPassword
             return
         }
 
@@ -198,7 +198,7 @@ struct PasswordStrengthIndicator: View {
                 .progressViewStyle(.linear)
                 .tint(color)
 
-            Text(strength.rawValue)
+            Text(strength.localized)
                 .font(.caption)
                 .foregroundStyle(color)
         }

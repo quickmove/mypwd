@@ -21,7 +21,7 @@ struct MainView: View {
             HStack {
                 Image(systemName: "lock.fill")
                     .foregroundStyle(appState.remainingSeconds <= 10 ? .orange : .secondary)
-                Text("\(appState.remainingSeconds) seconds until auto-lock")
+                Text("\(appState.remainingSeconds) \(LocalizedStrings.secondsUntilAutoLock)")
                     .font(.caption)
                     .foregroundStyle(appState.remainingSeconds <= 10 ? .orange : .secondary)
                 Spacer()
@@ -62,7 +62,7 @@ struct MainView: View {
                 .toolbar {
                     ToolbarItem(placement: .automatic) {
                         Button(action: lock) {
-                            Label("锁定", systemImage: "lock.fill")
+                            Label(LocalizedStrings.lock, systemImage: "lock.fill")
                         }
                     }
                 }
@@ -70,7 +70,7 @@ struct MainView: View {
                 if let item = selectedItem {
                     PasswordDetailView(item: item, onEdit: { selectedItem = nil }, onDelete: { selectedItem = nil })
                 } else {
-                    Text("Select a password item")
+                    Text(LocalizedStrings.selectAPasswordItem)
                         .foregroundStyle(.secondary)
                 }
             }

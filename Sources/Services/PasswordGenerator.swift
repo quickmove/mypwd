@@ -98,6 +98,16 @@ enum PasswordStrength: String, CaseIterable {
     case medium = "Medium"
     case strong = "Strong"
     case veryStrong = "Very Strong"
+    
+    var localized: String {
+        switch self {
+        case .veryWeak: return LocalizedStrings.veryWeak
+        case .weak: return LocalizedStrings.weak
+        case .medium: return LocalizedStrings.medium
+        case .strong: return LocalizedStrings.strong
+        case .veryStrong: return LocalizedStrings.veryStrong
+        }
+    }
 
     var color: String {
         switch self {

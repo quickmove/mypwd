@@ -14,7 +14,7 @@ struct UnlockView: View {
                 .font(.system(size: 64))
                 .foregroundStyle(.blue)
 
-            Text("Unlock Password Vault")
+            Text(LocalizedStrings.unlockPasswordVault)
                 .font(.title)
                 .fontWeight(.semibold)
 
@@ -25,7 +25,7 @@ struct UnlockView: View {
                             Image(systemName: biometryIcon)
                                 .font(.title2)
                             VStack(alignment: .leading) {
-                                Text("Unlock with \(biometryName)")
+                                Text(biometryDisplayName)
                                     .font(.headline)
                             }
                             Spacer()
@@ -45,7 +45,7 @@ struct UnlockView: View {
                             .foregroundStyle(.red)
                     }
                 } else {
-                    Text("TouchID not available")
+                    Text(LocalizedStrings.touchIDNotAvailable)
                         .foregroundStyle(.secondary)
                 }
             }
@@ -67,14 +67,14 @@ struct UnlockView: View {
         }
     }
 
-    private var biometryName: String {
+    private var biometryDisplayName: String {
         switch authService.biometryType {
         case .touchID:
-            return "Touch ID"
+            return LocalizedStrings.unlockWithTouchID
         case .faceID:
-            return "Face ID"
+            return LocalizedStrings.unlockWithFaceID
         default:
-            return "Biometrics"
+            return LocalizedStrings.unlockWithBiometrics
         }
     }
 

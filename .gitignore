@@ -30,6 +30,9 @@ Carthage/Checkouts/
 *.swp
 *~
 
+## Build outputs
+MyPwd.app/
+
 ## dev tools
 *.sh
 

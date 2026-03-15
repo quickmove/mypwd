@@ -1,0 +1,37 @@
+# Xcode
+## User settings
+xcuserdata/
+*.xcuserstate
+
+## Xcode automatic schemes
+*.xcodeproj/xcuserdata/
+*.xcworkspace/xcuserdata/
+
+## Xcode build
+build/
+DerivedData/
+*.dSYM.zip
+*.dSYM
+
+## CocoaPods
+Pods/
+Podfile.lock
+
+## Swift Package Manager
+.swiftpm/
+Package.resolved
+
+## Carthage
+Carthage/Build/
+Carthage/Checkouts/
+
+## macOS
+.DS_Store
+*.swp
+*~
+
+## dev tools
+*.sh
+
+## AI agent
+AGENTS.md

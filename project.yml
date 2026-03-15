@@ -1,0 +1,32 @@
+name: MyPwd
+options:
+  bundleIdPrefix: com.mypwd
+  deploymentTarget:
+    macOS: "13.0"
+  xcodeVersion: "15.0"
+  generateEmptyDirectories: true
+
+settings:
+  base:
+    SWIFT_VERSION: "5.9"
+    MACOSX_DEPLOYMENT_TARGET: "13.0"
+    CODE_SIGN_IDENTITY: "-"
+    CODE_SIGN_STYLE: Automatic
+    PRODUCT_NAME: MyPwd
+    INFOPLIST_KEY_NSFaceIDUsageDescription: "使用 Face ID 解锁密码库"
+
+targets:
+  MyPwd:
+    type: application
+    platform: macOS
+    sources:
+      - path: Sources
+        type: group
+    resources:
+      - path: Resources
+        type: group
+    settings:
+      base:
+        INFOPLIST_FILE: Resources/Info.plist
+        PRODUCT_BUNDLE_IDENTIFIER: com.mypwd.app
+        COMBINE_HIDPI_IMAGES: YES

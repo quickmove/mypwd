@@ -1,0 +1,387 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		14AFFA79C89F7E55AB95194C /* AuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4884AA398F12692088FFBAC0 /* AuthenticationService.swift */; };
+		2387C3FE97DE417424B2CB9F /* MyPwdApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B13A035B1624127DA113F03 /* MyPwdApp.swift */; };
+		25EB8AECACE966941A880931 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A85DFACFFDBE78E94D1E8BE9 /* MainView.swift */; };
+		2749F4A8677F692B420C23A8 /* PasswordGeneratorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFDA01D7474F15D2CBEA31FB /* PasswordGeneratorView.swift */; };
+		29C1F18C8F52D45C5384793E /* PasswordStorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799AB738B754BDFAD93799ED /* PasswordStorageService.swift */; };
+		544F4BBEC90574DBDFB62A9B /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6106CB084AB5169D19301C5 /* KeychainService.swift */; };
+		736CEF78F1476282A42AA5AB /* KeychainServiceWithBiometric.swift in Sources */ = {isa = PBXBuildFile; fileRef = C754342C549785DD0AD591E1 /* KeychainServiceWithBiometric.swift */; };
+		782A382B37A3BAF86A0CBF93 /* PasswordEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC759488DD9BE92ACE5FECB /* PasswordEditorView.swift */; };
+		8C0FFD3CFD02B62885C0E3EB /* CryptoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF1E8B7FA7DFC450522BA42 /* CryptoService.swift */; };
+		9016406FBE9B5DD9BACB9CA8 /* GitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5906CAC9FB50BE965AA9779A /* GitService.swift */; };
+		A15303A59E6128452A715E6B /* PasswordItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D7A6F2CE59E0C700922CC6 /* PasswordItem.swift */; };
+		A3979F7E9DA30F0548C4619F /* PasswordDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55930B8FB0657DCDD1D9ED99 /* PasswordDetailView.swift */; };
+		AED796AC61C4EC19209E5F79 /* PasswordGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF7D9C2BAB9E0FD2B00486B /* PasswordGenerator.swift */; };
+		DE5FAB9163E37EF1B48C6A04 /* UnlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE8EFAFD9CEF112ECE67292 /* UnlockView.swift */; };
+		F04D6AFF3425FAFF554D8C95 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9F5C55EBA090CD81D698CD /* ContentView.swift */; };
+		F6BF6905F7424910A74DA594 /* SetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08BD2D9CE5114AFA4E93990E /* SetupView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		08BD2D9CE5114AFA4E93990E /* SetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupView.swift; sourceTree = "<group>"; };
+		1A9F5C55EBA090CD81D698CD /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		1DC759488DD9BE92ACE5FECB /* PasswordEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordEditorView.swift; sourceTree = "<group>"; };
+		1E1BB6CE70461B097BE31F7E /* MyPwd.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyPwd.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2AF1E8B7FA7DFC450522BA42 /* CryptoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoService.swift; sourceTree = "<group>"; };
+		43D7A6F2CE59E0C700922CC6 /* PasswordItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordItem.swift; sourceTree = "<group>"; };
+		4884AA398F12692088FFBAC0 /* AuthenticationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationService.swift; sourceTree = "<group>"; };
+		55930B8FB0657DCDD1D9ED99 /* PasswordDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordDetailView.swift; sourceTree = "<group>"; };
+		5906CAC9FB50BE965AA9779A /* GitService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitService.swift; sourceTree = "<group>"; };
+		799AB738B754BDFAD93799ED /* PasswordStorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordStorageService.swift; sourceTree = "<group>"; };
+		8AE8EFAFD9CEF112ECE67292 /* UnlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnlockView.swift; sourceTree = "<group>"; };
+		9B13A035B1624127DA113F03 /* MyPwdApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPwdApp.swift; sourceTree = "<group>"; };
+		A85DFACFFDBE78E94D1E8BE9 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		C754342C549785DD0AD591E1 /* KeychainServiceWithBiometric.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainServiceWithBiometric.swift; sourceTree = "<group>"; };
+		CFDA01D7474F15D2CBEA31FB /* PasswordGeneratorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordGeneratorView.swift; sourceTree = "<group>"; };
+		E6106CB084AB5169D19301C5 /* KeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
+		EAF7D9C2BAB9E0FD2B00486B /* PasswordGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordGenerator.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		00A7634CD75FD1E8A8B26B16 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				A52D578A440A4D8E10E5C641 /* App */,
+				221D17A24FC2B722837A49B8 /* Models */,
+				4A947DEB303DD2FA6467A39F /* Services */,
+				2192D6032D199B05209738C0 /* Views */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		2192D6032D199B05209738C0 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				1A9F5C55EBA090CD81D698CD /* ContentView.swift */,
+				A85DFACFFDBE78E94D1E8BE9 /* MainView.swift */,
+				55930B8FB0657DCDD1D9ED99 /* PasswordDetailView.swift */,
+				1DC759488DD9BE92ACE5FECB /* PasswordEditorView.swift */,
+				08BD2D9CE5114AFA4E93990E /* SetupView.swift */,
+				8AE8EFAFD9CEF112ECE67292 /* UnlockView.swift */,
+				C3E621576B331AA29647160A /* Components */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		221D17A24FC2B722837A49B8 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				43D7A6F2CE59E0C700922CC6 /* PasswordItem.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		4A947DEB303DD2FA6467A39F /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				4884AA398F12692088FFBAC0 /* AuthenticationService.swift */,
+				2AF1E8B7FA7DFC450522BA42 /* CryptoService.swift */,
+				5906CAC9FB50BE965AA9779A /* GitService.swift */,
+				E6106CB084AB5169D19301C5 /* KeychainService.swift */,
+				C754342C549785DD0AD591E1 /* KeychainServiceWithBiometric.swift */,
+				EAF7D9C2BAB9E0FD2B00486B /* PasswordGenerator.swift */,
+				799AB738B754BDFAD93799ED /* PasswordStorageService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		873EE63B31EAE748B1CFF637 = {
+			isa = PBXGroup;
+			children = (
+				00A7634CD75FD1E8A8B26B16 /* Sources */,
+				EFED390D704583AEFA00F0C1 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		A52D578A440A4D8E10E5C641 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				9B13A035B1624127DA113F03 /* MyPwdApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		C3E621576B331AA29647160A /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				CFDA01D7474F15D2CBEA31FB /* PasswordGeneratorView.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		EFED390D704583AEFA00F0C1 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1E1BB6CE70461B097BE31F7E /* MyPwd.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		7B89B2519A93198632A67BBB /* MyPwd */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1C0B99921835C4CD0F9E420E /* Build configuration list for PBXNativeTarget "MyPwd" */;
+			buildPhases = (
+				8F56EEAF47055A7D695D7281 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MyPwd;
+			packageProductDependencies = (
+			);
+			productName = MyPwd;
+			productReference = 1E1BB6CE70461B097BE31F7E /* MyPwd.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		26C07C3FF63005AE933917E1 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					7B89B2519A93198632A67BBB = {
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 95F401BF0171D0CC053C4E1B /* Build configuration list for PBXProject "MyPwd" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 873EE63B31EAE748B1CFF637;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = EFED390D704583AEFA00F0C1 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				7B89B2519A93198632A67BBB /* MyPwd */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8F56EEAF47055A7D695D7281 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				14AFFA79C89F7E55AB95194C /* AuthenticationService.swift in Sources */,
+				F04D6AFF3425FAFF554D8C95 /* ContentView.swift in Sources */,
+				8C0FFD3CFD02B62885C0E3EB /* CryptoService.swift in Sources */,
+				9016406FBE9B5DD9BACB9CA8 /* GitService.swift in Sources */,
+				544F4BBEC90574DBDFB62A9B /* KeychainService.swift in Sources */,
+				736CEF78F1476282A42AA5AB /* KeychainServiceWithBiometric.swift in Sources */,
+				25EB8AECACE966941A880931 /* MainView.swift in Sources */,
+				2387C3FE97DE417424B2CB9F /* MyPwdApp.swift in Sources */,
+				A3979F7E9DA30F0548C4619F /* PasswordDetailView.swift in Sources */,
+				782A382B37A3BAF86A0CBF93 /* PasswordEditorView.swift in Sources */,
+				AED796AC61C4EC19209E5F79 /* PasswordGenerator.swift in Sources */,
+				2749F4A8677F692B420C23A8 /* PasswordGeneratorView.swift in Sources */,
+				A15303A59E6128452A715E6B /* PasswordItem.swift in Sources */,
+				29C1F18C8F52D45C5384793E /* PasswordStorageService.swift in Sources */,
+				F6BF6905F7424910A74DA594 /* SetupView.swift in Sources */,
+				DE5FAB9163E37EF1B48C6A04 /* UnlockView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		095D65207BA5F9FF2857360C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = Resources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.mypwd.app;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		3E8629B4965183298016A67E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_KEY_NSFaceIDUsageDescription = "使用 Face ID 解锁密码库";
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = MyPwd;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.9;
+			};
+			name = Release;
+		};
+		5754D9595EAA9945F46B575B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = Resources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.mypwd.app;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		9E39CA09F4BC65C1818B7F50 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_KEY_NSFaceIDUsageDescription = "使用 Face ID 解锁密码库";
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = MyPwd;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.9;
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1C0B99921835C4CD0F9E420E /* Build configuration list for PBXNativeTarget "MyPwd" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5754D9595EAA9945F46B575B /* Debug */,
+				095D65207BA5F9FF2857360C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		95F401BF0171D0CC053C4E1B /* Build configuration list for PBXProject "MyPwd" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9E39CA09F4BC65C1818B7F50 /* Debug */,
+				3E8629B4965183298016A67E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 26C07C3FF63005AE933917E1 /* Project object */;
+}

@@ -1,0 +1,201 @@
+import SwiftUI
+import AppKit
+
+struct PasswordDetailView: View {
+    let item: PasswordItem
+    let onEdit: () -> Void
+    let onDelete: () -> Void
+
+    @State private var showPassword = false
+    @State private var copiedField: String?
+    @State private var showingEditor = false
+    @State private var timer: Timer?
+    @State private var showingDeleteAlert = false
+
+    // 自动隐藏超时时间（秒）
+    private let autoHideTimeout: TimeInterval = 30
+
+    var body: some View {
+        ScrollView {
+            VStack(alignment: .leading, spacing: 24) {
+                // 标题
+                HStack {
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text(item.displayTitle)
+                            .font(.title)
+                            .fontWeight(.bold)
+
+                        if !item.url.isEmpty {
+                            Text(item.url)
+                                .font(.subheadline)
+                                .foregroundStyle(.secondary)
+                        }
+                    }
+
+                    Spacer()
+
+                    Button(action: {
+                        NotificationCenter.default.post(name: .pauseAutoLock, object: nil)
+                        showingEditor = true
+                    }) {
+                        Label("编辑", systemImage: "pencil")
+                    }
+                    .buttonStyle(.bordered)
+
+                    Button(action: {
+                        showingDeleteAlert = true
+                    }) {
+                        Label("删除", systemImage: "trash")
+                    }
+                    .buttonStyle(.bordered)
+                    .tint(.red)
+                }
+
+                Divider()
+
+                // 用户名
+                DetailField(title: "用户名", value: item.username, isSensitive: false, copiedFieldName: $copiedField)
+
+                // 密码
+                DetailField(title: "密码", value: item.password, isSensitive: !showPassword, copiedFieldName: $copiedField) {
+                    AnyView(
+                        Button(action: togglePassword) {
+                            Image(systemName: showPassword ? "eye.slash" : "eye")
+                        }
+                        .buttonStyle(.borderless)
+                    )
+                }
+
+                // 备注
+                if !item.note.isEmpty {
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text("备注")
+                            .font(.subheadline)
+                            .foregroundStyle(.secondary)
+
+                        Text(item.note)
+                            .font(.body)
+                    }
+                }
+
+                // 时间信息
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("创建时间: \(item.createdAt.formatted())")
+                        .font(.caption)
+                        .foregroundStyle(.tertiary)
+
+                    Text("更新时间: \(item.updatedAt.formatted())")
+                        .font(.caption)
+                        .foregroundStyle(.tertiary)
+                }
+                .padding(.top, 16)
+            }
+            .padding(24)
+        }
+        .sheet(isPresented: $showingEditor) {
+            PasswordEditorView(item: item) { didSave in
+                showingEditor = false
+            }
+            .onAppear {
+                NotificationCenter.default.post(name: .pauseAutoLock, object: nil)
+            }
+            .onDisappear {
+                NotificationCenter.default.post(name: .resumeAutoLock, object: nil)
+            }
+        }
+        .alert("确认删除", isPresented: $showingDeleteAlert) {
+            Button("取消", role: .cancel) { }
+            Button("删除", role: .destructive) {
+                try? PasswordStorageService.shared.deleteItem(id: item.id)
+                onDelete()
+            }
+        } message: {
+            Text("确定要删除 \"\(item.displayTitle)\" 吗？此操作无法撤销。")
+        }
+        // 密码项变化时隐藏密码
+        .onChange(of: item.id) { _ in
+            hidePassword()
+        }
+        // 视图消失时隐藏密码并取消计时器
+        .onDisappear {
+            hidePassword()
+        }
+        .onTapGesture {
+            NotificationCenter.default.post(name: .userActivityRecorded, object: nil)
+        }
+    }
+
+    private func togglePassword() {
+        if showPassword {
+            hidePassword()
+        } else {
+            showPassword = true
+            startTimer()
+        }
+    }
+
+    private func hidePassword() {
+        showPassword = false
+        timer?.invalidate()
+        timer = nil
+    }
+
+    private func startTimer() {
+        timer?.invalidate()
+        timer = Timer.scheduledTimer(withTimeInterval: autoHideTimeout, repeats: false) { _ in
+            showPassword = false
+        }
+    }
+}
+
+struct DetailField: View {
+    let title: String
+    let value: String
+    let isSensitive: Bool
+    @Binding var copiedFieldName: String?
+    var trailingButton: (() -> AnyView)?
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text(title)
+                .font(.subheadline)
+                .foregroundStyle(.secondary)
+
+            HStack {
+                if isSensitive {
+                    Text(String(repeating: "•", count: min(value.count, 12)))
+                        .font(.body)
+                } else {
+                    Text(value)
+                        .font(.body)
+                }
+
+                Spacer()
+
+                if let trailingButton = trailingButton {
+                    trailingButton()
+                }
+
+                Button(action: copyToClipboard) {
+                    Image(systemName: copiedFieldName == title ? "checkmark" : "doc.on.doc")
+                        .foregroundStyle(copiedFieldName == title ? .green : .secondary)
+                }
+                .buttonStyle(.borderless)
+            }
+        }
+    }
+
+    private func copyToClipboard() {
+        let pasteboard = NSPasteboard.general
+        pasteboard.clearContents()
+        pasteboard.setString(value, forType: .string)
+
+        copiedFieldName = title
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            if copiedFieldName == title {
+                copiedFieldName = nil
+            }
+        }
+    }
+}

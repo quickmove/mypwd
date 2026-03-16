@@ -24,12 +24,15 @@ MyPwd/
 │   ├── App/
 │   │   └── MyPwdApp.swift         # App entry point
 │   ├── Models/
-│   │   └── PasswordItem.swift    # Password data model
+│   │   └── PasswordItem.swift     # Password data model
 │   ├── Services/
 │   │   ├── AuthenticationService.swift       # Biometric authentication
+│   │   ├── ConfigService.swift                # App configuration service
 │   │   ├── CryptoService.swift               # Encryption/decryption service
-│   │   ├── KeychainService.swift             # Keychain basic service
+│   │   ├── GitService.swift                   # Git sync service
 │   │   ├── KeychainServiceWithBiometric.swift # Biometric Keychain
+│   │   ├── LocalizationService.swift          # Localization service
+│   │   ├── LocalizedStrings.swift             # Localized strings
 │   │   ├── PasswordGenerator.swift           # Password generator
 │   │   └── PasswordStorageService.swift       # Password storage service
 │   └── Views/
@@ -38,7 +41,7 @@ MyPwd/
 │       ├── SetupView.swift           # Initial setup view
 │       ├── UnlockView.swift          # Unlock view
 │       ├── PasswordDetailView.swift  # Password detail
-│       ├── PasswordEditorView.swift   # Password editor
+│       ├── PasswordEditorView.swift  # Password editor
 │       └── Components/
 │           └── PasswordGeneratorView.swift  # Password generator component
 ```
@@ -49,7 +52,7 @@ MyPwd/
 |--------|-------------|
 | **App** | App entry point with `@main` |
 | **Models** | Data models, `PasswordItem` defines the password entry structure |
-| **Services** | Core service layer including authentication, encryption, storage, etc. |
+| **Services** | Core service layer including authentication, config, encryption, Git sync, storage, etc. |
 | **Views** | SwiftUI view layer for UI interactions |
 
 ## Build & Run
@@ -83,6 +86,8 @@ MyPwd/
 4. **Password Management** - Add, edit, delete password entries
 5. **Password Generator** - Built-in password generator
 6. **Custom Storage Path** - Support for choosing encrypted database storage location
+7. **Git Sync** - Sync password vault to remote Git repository
+8. **Internationalization** - Support for Simplified Chinese and English interfaces
 
 ## Security Features
 

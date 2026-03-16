@@ -24,12 +24,15 @@ MyPwd/
 │   ├── App/
 │   │   └── MyPwdApp.swift         # 应用入口
 │   ├── Models/
-│   │   └── PasswordItem.swift    # 密码数据模型
+│   │   └── PasswordItem.swift     # 密码数据模型
 │   ├── Services/
 │   │   ├── AuthenticationService.swift       # 生物识别认证
-│   │   ├── CryptoService.swift               # 加密/解密服务
-│   │   ├── KeychainService.swift             # Keychain 基础服务
+│   │   ├── ConfigService.swift                # 应用配置服务
+│   │   ├── CryptoService.swift                # 加密/解密服务
+│   │   ├── GitService.swift                   # Git 同步服务
 │   │   ├── KeychainServiceWithBiometric.swift # 生物识别 Keychain
+│   │   ├── LocalizationService.swift          # 本地化服务
+│   │   ├── LocalizedStrings.swift             # 本地化字符串
 │   │   ├── PasswordGenerator.swift           # 密码生成器
 │   │   └── PasswordStorageService.swift       # 密码存储服务
 │   └── Views/
@@ -37,7 +40,7 @@ MyPwd/
 │       ├── MainView.swift            # 主界面
 │       ├── SetupView.swift           # 初始设置视图
 │       ├── UnlockView.swift          # 解锁视图
-│       ├── PasswordDetailView.swift  # 密码详情
+│       ├── PasswordDetailView.swift # 密码详情
 │       ├── PasswordEditorView.swift  # 密码编辑
 │       └── Components/
 │           └── PasswordGeneratorView.swift  # 密码生成组件
@@ -49,7 +52,7 @@ MyPwd/
 |------|------|
 | **App** | 应用入口，包含 `@main` 入口点 |
 | **Models** | 数据模型，`PasswordItem` 定义密码条目结构 |
-| **Services** | 核心服务层，包括认证、加密、存储等 |
+| **Services** | 核心服务层，包括认证、配置、加密、Git 同步、存储等 |
 | **Views** | SwiftUI 视图层，处理 UI 交互 |
 
 ## 构建与运行
@@ -83,6 +86,8 @@ MyPwd/
 4. **密码管理** - 添加、编辑、删除密码条目
 5. **密码生成** - 内置密码生成器
 6. **自定义存储路径** - 支持选择加密数据库的存储位置
+7. **Git 同步** - 支持将密码库同步到远程 Git 仓库
+8. **国际化** - 支持简体中文和英文界面
 
 ## 安全特性
 

@@ -44,20 +44,14 @@ final class PasswordStorageService {
     // User custom path
     var customStoreURL: URL? {
         get {
-            guard let data = try? KeychainService.shared.load(forKey: KeychainService.Keys.customStorePath),
-                  let pathString = String(data: data, encoding: .utf8),
+            guard let pathString = ConfigService.shared.customStorePath,
                   let url = URL(string: pathString) else {
                 return nil
             }
             return url
         }
         set {
-            if let url = newValue {
-                let data = url.absoluteString.data(using: .utf8) ?? Data()
-                try? KeychainService.shared.save(data: data, forKey: KeychainService.Keys.customStorePath)
-            } else {
-                try? KeychainService.shared.delete(forKey: KeychainService.Keys.customStorePath)
-            }
+            ConfigService.shared.customStorePath = newValue?.absoluteString
         }
     }
 
@@ -66,7 +60,7 @@ final class PasswordStorageService {
     }
 
     var isSetup: Bool {
-        KeychainServiceWithBiometric.shared.exists(forKey: "masterKey")
+        ConfigService.shared.masterKey != nil
     }
 
     private init() {}
@@ -77,9 +71,8 @@ final class PasswordStorageService {
             customStoreURL = path
         }
 
-        // Store master key in Keychain, protected by TouchID
-        let keyData = masterPassword.data(using: .utf8)!
-        try KeychainServiceWithBiometric.shared.saveKey(data: keyData, forKey: "masterKey")
+        // Store master key in ConfigService (protected by TouchID via Keychain)
+        ConfigService.shared.masterKey = masterPassword
 
         // Ensure directory exists
         let directory = storeURL.deletingLastPathComponent()
@@ -107,9 +100,8 @@ final class PasswordStorageService {
             throw StorageError.loadFailed
         }
 
-        // Store master key in Keychain, protected by TouchID
-        let keyData = masterPassword.data(using: .utf8)!
-        try KeychainServiceWithBiometric.shared.saveKey(data: keyData, forKey: "masterKey")
+        // Store master key in ConfigService (protected by TouchID via Keychain)
+        ConfigService.shared.masterKey = masterPassword
 
         // Decrypt and load existing data
         let crypto = try CryptoService(masterPassword: masterPassword)
@@ -137,9 +129,11 @@ final class PasswordStorageService {
     }
 
     func unlockWithBiometrics() throws {
-        // Get master key from Keychain (TouchID protected)
-        guard let masterKeyData = try KeychainServiceWithBiometric.shared.loadKeyWithBiometrics(forKey: "masterKey"),
-              let masterKey = String(data: masterKeyData, encoding: .utf8) else {
+        // Ensure config is loaded (without biometrics, already authenticated)
+        ConfigService.shared.loadConfig()
+
+        // Get master key from ConfigService
+        guard let masterKey = ConfigService.shared.masterKey else {
             throw StorageError.notSetup
         }
 

@@ -34,11 +34,6 @@ final class GitService {
 
     private let fileManager = FileManager.default
 
-    // Git 配置存储
-    private let configKeyRepoURL = "gitRepoURL"
-    private let configKeyUsername = "gitUsername"
-    private let configKeyPassword = "gitPassword"
-
     private init() {}
 
     // 密码库根目录（包含 .git 文件夹）
@@ -61,51 +56,30 @@ final class GitService {
     // 获取/设置仓库 URL
     var repoURL: String? {
         get {
-            guard let data = try? KeychainService.shared.load(forKey: configKeyRepoURL) else {
-                return nil
-            }
-            return String(data: data, encoding: .utf8)
+            ConfigService.shared.gitRepoURL
         }
         set {
-            if let url = newValue {
-                try? KeychainService.shared.save(data: url.data(using: .utf8) ?? Data(), forKey: configKeyRepoURL)
-            } else {
-                try? KeychainService.shared.delete(forKey: configKeyRepoURL)
-            }
+            ConfigService.shared.gitRepoURL = newValue
         }
     }
 
     // 获取/设置用户名
     var username: String? {
         get {
-            guard let data = try? KeychainService.shared.load(forKey: configKeyUsername) else {
-                return nil
-            }
-            return String(data: data, encoding: .utf8)
+            ConfigService.shared.gitUsername
         }
         set {
-            if let name = newValue {
-                try? KeychainService.shared.save(data: name.data(using: .utf8) ?? Data(), forKey: configKeyUsername)
-            } else {
-                try? KeychainService.shared.delete(forKey: configKeyUsername)
-            }
+            ConfigService.shared.gitUsername = newValue
         }
     }
 
     // 获取/设置密码
     var password: String? {
         get {
-            guard let data = try? KeychainService.shared.load(forKey: configKeyPassword) else {
-                return nil
-            }
-            return String(data: data, encoding: .utf8)
+            ConfigService.shared.gitPassword
         }
         set {
-            if let pwd = newValue {
-                try? KeychainService.shared.save(data: pwd.data(using: .utf8) ?? Data(), forKey: configKeyPassword)
-            } else {
-                try? KeychainService.shared.delete(forKey: configKeyPassword)
-            }
+            ConfigService.shared.gitPassword = newValue
         }
     }
 

@@ -38,6 +38,9 @@ final class AppState: ObservableObject {
     private let autoLockTimeout: TimeInterval = 30
 
     init() {
+        // Load config to cache at app startup (with biometrics)
+        try? ConfigService.shared.loadConfigWithBiometrics()
+
         isSetup = PasswordStorageService.shared.isSetup
         startIdleMonitor()
 

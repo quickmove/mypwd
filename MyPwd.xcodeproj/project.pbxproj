@@ -12,7 +12,6 @@
 		25EB8AECACE966941A880931 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A85DFACFFDBE78E94D1E8BE9 /* MainView.swift */; };
 		2749F4A8677F692B420C23A8 /* PasswordGeneratorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFDA01D7474F15D2CBEA31FB /* PasswordGeneratorView.swift */; };
 		29C1F18C8F52D45C5384793E /* PasswordStorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799AB738B754BDFAD93799ED /* PasswordStorageService.swift */; };
-		544F4BBEC90574DBDFB62A9B /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6106CB084AB5169D19301C5 /* KeychainService.swift */; };
 		613CE44D6FE8982EF32F5213 /* LocalizationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B693C83C02D7F316D84D280E /* LocalizationService.swift */; };
 		736CEF78F1476282A42AA5AB /* KeychainServiceWithBiometric.swift in Sources */ = {isa = PBXBuildFile; fileRef = C754342C549785DD0AD591E1 /* KeychainServiceWithBiometric.swift */; };
 		77341C4DEFFF9AFE5F90A0FF /* LocalizedStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D0C08351A216EBF2C3834B /* LocalizedStrings.swift */; };
@@ -21,6 +20,7 @@
 		9016406FBE9B5DD9BACB9CA8 /* GitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5906CAC9FB50BE965AA9779A /* GitService.swift */; };
 		A15303A59E6128452A715E6B /* PasswordItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D7A6F2CE59E0C700922CC6 /* PasswordItem.swift */; };
 		A3979F7E9DA30F0548C4619F /* PasswordDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55930B8FB0657DCDD1D9ED99 /* PasswordDetailView.swift */; };
+		AECE0E1BC76D2803BDDAFF1E /* ConfigService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8E24A58DDF5EAC391E90925 /* ConfigService.swift */; };
 		AED796AC61C4EC19209E5F79 /* PasswordGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF7D9C2BAB9E0FD2B00486B /* PasswordGenerator.swift */; };
 		DE5FAB9163E37EF1B48C6A04 /* UnlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE8EFAFD9CEF112ECE67292 /* UnlockView.swift */; };
 		F04D6AFF3425FAFF554D8C95 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9F5C55EBA090CD81D698CD /* ContentView.swift */; };
@@ -45,7 +45,7 @@
 		B693C83C02D7F316D84D280E /* LocalizationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizationService.swift; sourceTree = "<group>"; };
 		C754342C549785DD0AD591E1 /* KeychainServiceWithBiometric.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainServiceWithBiometric.swift; sourceTree = "<group>"; };
 		CFDA01D7474F15D2CBEA31FB /* PasswordGeneratorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordGeneratorView.swift; sourceTree = "<group>"; };
-		E6106CB084AB5169D19301C5 /* KeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
+		E8E24A58DDF5EAC391E90925 /* ConfigService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigService.swift; sourceTree = "<group>"; };
 		EAF7D9C2BAB9E0FD2B00486B /* PasswordGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordGenerator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -56,6 +56,7 @@
 				A52D578A440A4D8E10E5C641 /* App */,
 				221D17A24FC2B722837A49B8 /* Models */,
 				4A947DEB303DD2FA6467A39F /* Services */,
+				C864AAEFC347D83D81ABEBF4 /* Tests */,
 				2192D6032D199B05209738C0 /* Views */,
 			);
 			path = Sources;
@@ -87,9 +88,9 @@
 			isa = PBXGroup;
 			children = (
 				4884AA398F12692088FFBAC0 /* AuthenticationService.swift */,
+				E8E24A58DDF5EAC391E90925 /* ConfigService.swift */,
 				2AF1E8B7FA7DFC450522BA42 /* CryptoService.swift */,
 				5906CAC9FB50BE965AA9779A /* GitService.swift */,
-				E6106CB084AB5169D19301C5 /* KeychainService.swift */,
 				C754342C549785DD0AD591E1 /* KeychainServiceWithBiometric.swift */,
 				B693C83C02D7F316D84D280E /* LocalizationService.swift */,
 				53D0C08351A216EBF2C3834B /* LocalizedStrings.swift */,
@@ -121,6 +122,13 @@
 				CFDA01D7474F15D2CBEA31FB /* PasswordGeneratorView.swift */,
 			);
 			path = Components;
+			sourceTree = "<group>";
+		};
+		C864AAEFC347D83D81ABEBF4 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Tests;
 			sourceTree = "<group>";
 		};
 		EFED390D704583AEFA00F0C1 /* Products */ = {
@@ -190,10 +198,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				14AFFA79C89F7E55AB95194C /* AuthenticationService.swift in Sources */,
+				AECE0E1BC76D2803BDDAFF1E /* ConfigService.swift in Sources */,
 				F04D6AFF3425FAFF554D8C95 /* ContentView.swift in Sources */,
 				8C0FFD3CFD02B62885C0E3EB /* CryptoService.swift in Sources */,
 				9016406FBE9B5DD9BACB9CA8 /* GitService.swift in Sources */,
-				544F4BBEC90574DBDFB62A9B /* KeychainService.swift in Sources */,
 				736CEF78F1476282A42AA5AB /* KeychainServiceWithBiometric.swift in Sources */,
 				613CE44D6FE8982EF32F5213 /* LocalizationService.swift in Sources */,
 				77341C4DEFFF9AFE5F90A0FF /* LocalizedStrings.swift in Sources */,
